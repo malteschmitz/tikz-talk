@@ -240,3 +240,8 @@
 
 \pgfdeclareimage[width=8cm]{live-coding}{live-coding}
 \newcommand{\livecoding}[1]{\frame{\frametitle{#1}\centerline{\pgfuseimage{live-coding}}}}
+
+% create new environment Frame behaving exactly like frame
+% useful for having listings with \end{frame}
+\newenvironment{Frame}[1][]{%
+  \begin{frame}[environment=Frame,#1]}{\end{frame}}

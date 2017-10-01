@@ -55,6 +55,13 @@
   decorations.markings%
 }
 
+\tikzset{
+  level/.style={
+    sibling distance=20mm/#1
+  },
+  level distance=10mm,
+}
+
 % math
 \RequirePackage{amsmath}
 

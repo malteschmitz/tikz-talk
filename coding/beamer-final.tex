@@ -1,0 +1,144 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.geometric}
+\usepackage{listings}
+
+\usetheme{Luebeck}
+
+\title{Meine erste Präsentation}
+\author{Malte Schmitz}
+
+\begin{document}
+  \begin{frame}
+    \maketitle
+  \end{frame}
+
+  \begin{frame}{Gliederung}
+    \tableofcontents
+  \end{frame}
+
+  \section{Einführung}
+
+  \begin{frame}{Funktionen von Beamer}
+    Kompilieren wie jedes andere
+    \LaTeX-Dokument auch.
+  \end{frame}
+
+  \section{Hauptteil}
+
+  \subsection{Formel}
+
+  \begin{frame}{Eine Formel}
+    \[ a^2 + b^2 = c^2 \]
+  \end{frame}
+
+  \subsection{Sandhaufensatz}
+
+  \begin{frame}{Sandhaufensatz}
+    \begin{Satz}[Sandhaufensatz]
+      Es gibt keine Sandhaufen.
+    \end{Satz}
+
+    \begin{Beweis}<2->
+      \begin{enumerate}
+        \item<3-> Ein Sandkorn ist kein Sandhaufen.
+        \item<4-> Sandkörner werden durch Hinzufügen eines Sandkorns nicht zum Sandhaufen.
+        \item Induktiv folgt die Aussage. \qedhere
+      \end{enumerate}
+      \end{Beweis}
+    \onslide<5->
+    Der Induktionsbeweis ist \alert<6>{falsch}!
+  \end{frame}
+
+  \subsection{Animation}
+
+  \begin{frame}[fragile]{Animation}
+    \tikzset{
+      io/.style={
+        trapezium,
+        trapezium left angle=70,
+        trapezium right angle=110,
+        fill=magenta!10,
+        draw=magenta
+      },
+      op/.style={
+        rectangle,
+        fill=orange!10,
+        draw=orange
+      },
+      cn/.style={
+        diamond,
+        aspect=2,
+        inner sep=2pt,
+        fill=red!10,
+        draw=red
+      },
+      node distance=5mm,
+      thick
+    }
+
+    \lstset{
+      morekeywords={function,var,while,return},
+      basicstyle={\ttfamily},
+      keywordstyle={\bfseries\color{orange}}
+    }
+
+    \begin{columns}
+      \column{4cm}
+
+      \begin{tikzpicture}
+        \node[io] (in) {Eingabe $a,b$};
+        \pause
+
+        \node[op, below=of in] (div) {$r=a \mod b$};
+        \path[->] (in) edge (div);
+        \pause
+
+        \node[op, below=of div] (set) {$a=b,\ b=r$};
+        \path[->] (div) edge (set);
+        \pause
+
+        \node[cn, below=of set] (cond) {$b=0?$};
+        \path[->] (set) edge (cond);
+        \draw[->] (cond) -- node[below] {Nein} ++(1.5,0) |- (div);
+
+        \pause
+        \node[io, below=of cond] (out) {Ausgabe $a$};
+        \path[->] (cond) edge node[right] {Ja} (out);
+
+        \onslide<1->
+      \end{tikzpicture}
+
+      \column{5cm}
+      \begin{lstlisting}[gobble=6]
+        function ggt(a, b) {
+          var r;
+          while (b != 0) {
+            r = a % b;
+            a = b;
+            b = r;
+          }
+          return a;
+        }
+      \end{lstlisting}
+    \end{columns}
+
+  \end{frame}
+
+  \section{Schluss}
+
+  \begin{frame}{Fazit}
+    \begin{enumerate}
+      \item Wir
+      \item sind
+      \item am
+      \item Ende.
+    \end{enumerate}
+  \end{frame}
+\end{document}

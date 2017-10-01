@@ -1,0 +1,35 @@
+%!TEX root = tikz.tex
+
+\begin{frame}{Was ist \beamer?}
+  \begin{itemize}
+    \item \alert{Dokumentenklasse für \LaTeX} für die Erzeugung von Präsentationen.
+      \only<article>{\newline(Diese Präsentation und das Skript wurden mit \beamer\ erzeugt.)}
+    \item Keine eigene und \alert{keine graphische Anwendung}.
+    \item \strut\beamer\ ist in vielen \TeX-Distributionen enthalten.\newline
+      (\alert{Es kann direkt losgehen}.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Workflow}
+  \lstset{language={}}
+  \begin{enumerate}
+    \item Normales \LaTeX-Dokument erzeugen.\\
+      Dabei einige spezielle \beamer-Kommandos verwenden.
+    \item \LaTeX-Dokument mit \lstinline-pdflatex- kompilieren.
+    \item Ergebnis überprüfen und \LaTeX-Dokument anpassen.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Folien}
+  \begin{itemize}
+    \item Ein \beamer-Dokument besteht aus mehreren Frames.
+    \item Jeder Frame kann aus mehreren Slides bestehen.
+    \item Die Umgebung \lstinline-frame- verarbeitet
+      bis zu zwei Parameter in gescheiften Klammern \lstinline-{}-
+    \item Der erste Parameter ist der Titel.
+    \item Der zweite Parameter ist der Untertitel.
+    \item Innerhalb der Umgebung \lstinline|frame| wird normaler \LaTeX-Code
+      verwendet.
+  \end{itemize}
+\end{frame}
+

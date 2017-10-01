@@ -7,7 +7,6 @@
 
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes.geometric}
-\usepackage{listings}
 
 \usetheme{Luebeck}
 
@@ -83,51 +82,29 @@
       thick
     }
 
-    \lstset{
-      morekeywords={function,var,while,return},
-      basicstyle={\ttfamily},
-      keywordstyle={\bfseries\color{orange}}
-    }
+    \centering
+    \begin{tikzpicture}
+      \node[io] (in) {Eingabe $a,b$};
+      \pause
 
-    \begin{columns}
-      \column{4cm}
+      \node[op, below=of in] (div) {$r=a \mod b$};
+      \path[->] (in) edge (div);
+      \pause
 
-      \begin{tikzpicture}
-        \node[io] (in) {Eingabe $a,b$};
-        \pause
+      \node[op, below=of div] (set) {$a=b,\ b=r$};
+      \path[->] (div) edge (set);
+      \pause
 
-        \node[op, below=of in] (div) {$r=a \mod b$};
-        \path[->] (in) edge (div);
-        \pause
+      \node[cn, below=of set] (cond) {$b=0?$};
+      \path[->] (set) edge (cond);
+      \draw[->] (cond) -- node[below] {Nein} ++(1.5,0) |- (div);
 
-        \node[op, below=of div] (set) {$a=b,\ b=r$};
-        \path[->] (div) edge (set);
-        \pause
+      \pause
+      \node[io, below=of cond] (out) {Ausgabe $a$};
+      \path[->] (cond) edge node[right] {Ja} (out);
 
-        \node[cn, below=of set] (cond) {$b=0?$};
-        \path[->] (set) edge (cond);
-        \draw[->] (cond) -- node[below] {Nein} ++(1.5,0) |- (div);
-
-        \pause
-        \node[io, below=of cond] (out) {Ausgabe $a$};
-        \path[->] (cond) edge node[right] {Ja} (out);
-
-        \onslide<1->
-      \end{tikzpicture}
-
-      \column{5cm}
-      \begin{lstlisting}[gobble=6]
-        function ggt(a, b) {
-          var r;
-          while (b != 0) {
-            r = a % b;
-            a = b;
-            b = r;
-          }
-          return a;
-        }
-      \end{lstlisting}
-    \end{columns}
+      \onslide<1->
+    \end{tikzpicture}
 
   \end{frame}
 

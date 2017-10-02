@@ -144,6 +144,13 @@
 
 \begin{frame}{Ziel Bäume}
   \tikzset{
+    level/.style={
+      sibling distance=20mm/#1
+    },
+    level distance=10mm,
+  }
+
+  \tikzset{
     every node/.style={
       draw,
       circle,

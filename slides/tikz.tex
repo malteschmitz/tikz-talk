@@ -37,6 +37,45 @@
   \end{itemize}
 \end{frame}
 
+\begin{Frame}{Unser erstes Ziel}
+  \centering
+  \begin{tikzpicture}[scale=4]
+    % Gitter im Hintergrund
+    \draw[step=.5cm,gray,very thin] (0,0)
+      grid (1.4,1.4);
+    % Kreisbogen
+    \draw (1,0) arc (0:90:1cm);
+    % Koordinatenachsen
+    \draw[->] (0,0) -- (1.5,0) node[right] {$x$};
+    \draw[->] (0,0) -- (0,1.5) node[above] {$y$};
+    \draw (1,1pt) -- (1,-1pt) node[below] {$1$};
+    \draw (1pt,1) -- (-1pt,1) node[left] {$1$};
+    % Winkel
+    \filldraw[fill=green!20,draw=green!50!black]
+      (0,0) -- (3mm,0pt) arc (0:30:3mm);
+    \draw (15:2mm) node[green!50!black] {$\alpha$};
+    % Sinus und Kosinus
+    \draw[very thick,red]
+      (30:1cm) -- node[left]
+        {$\sin \alpha$} (30:1cm |- 0,0);
+    \draw[very thick,blue]
+      (0,0) -- node[below]
+        {$\cos \alpha$} (30:1cm |- 0,0);
+    % Schnittpunktberechnung und Tangens
+    \path [name path=upward line]
+      (1,0) -- (1,1);
+    \path [name path=sloped line]
+      (0,0) -- (30:1.5cm);
+    \draw [name intersections=
+      {of=upward line and sloped line, by=tan}]
+      [very thick,orange] (1,0) -- node [right]
+      {$\displaystyle \tan \alpha \color{black}=
+        \frac{{\color{red}\sin \alpha}}
+          {\color{blue}\cos \alpha}$} (tan);
+    \draw (0,0) -- (tan);
+  \end{tikzpicture}
+\end{Frame}
+
 \livecoding{Einführung}
 
 \section{Graphen}
@@ -59,13 +98,98 @@
   \end{itemize}
 \end{frame}
 
-\livecoding{Graphen}
+\begin{frame}{Ziel Knoten}
+  \centering
+  \begin{tikzpicture}
+    [io/.style={trapezium, trapezium left angle=70, trapezium right angle=110, fill=magenta!10, draw=magenta},
+    op/.style={rectangle, fill=orange!10, draw=orange},
+    cn/.style={diamond, aspect=2, inner sep=2pt, fill=red!10, draw=red},
+    node distance=5mm, thick]
+    \node[io] (in) {Eingabe $a,b$};
+    \node[op, below=of in] (div) {$r=a \mod b$};
+    \node[op, below=of div] (set) {$a=b,\ b=r$};
+    \node[cn, below=of set] (cond) {$b=0?$};
+    \node[io, below=of cond] (out) {Ausgabe $a$};
+    %
+    \path[->]
+      (in) edge (div)
+      (div) edge (set)
+      (set) edge (cond)
+      (cond) edge node[right] {Ja} (out);
+    \draw[->] (cond) -- node[below] {Nein} ++(1.5,0) |- (div);
+  \end{tikzpicture}
+\end{frame}
+
+\livecoding{Knoten}
 
 \subsection{Automaten}
 
+\begin{frame}{Ziel Automaten}
+  \centering
+  \begin{tikzpicture}[auto, thick]
+    \node[initial,state] (q0) {$q_0$};
+    \node[state, right=of q0] (q1) {$q_1$};
+    \node[state, accepting, right=of q1] (q2) {$q_2$};
+    \path
+      (q0) edge[->] node {0} (q1)
+      (q1) edge[->, loop above] node {0} ()
+      (q1) edge[->, bend left] node {1} (q2)
+      (q2) edge[->, bend left] node {0} (q1);
+  \end{tikzpicture}
+\end{frame}
+
+\livecoding{Automaten}
+
 \subsection{Bäume}
 
+\begin{frame}{Ziel Bäume}
+  \tikzset{
+    every node/.style={
+      draw,
+      circle,
+      inner sep=0pt,
+      minimum width=15pt
+    },
+    thick
+  }
+
+  \centering
+  \begin{tikzpicture}
+    \node {a}
+      child { node {b}
+        child { node {d} }
+        child { node {e} }
+      }
+      child { node {c}
+        child { node {f} }
+        child { node {g} }
+      };
+  \end{tikzpicture}
+\end{frame}
+
+\livecoding{Bäume}
+
 \subsection{Funktionsplots}
+
+\begin{frame}{Ziel Funktionsplots}
+  \centering
+  \begin{tikzpicture}[domain=0:5]
+    \draw[very thin,gray] (0,-1.4) grid (4.9,3.4);
+    \draw[->] (0,0) -- (5.2,0) node[right] {$x$};
+    \draw[->] (0,-1.5) -- (0,3.5) node[above] {$f(x)$};
+    %
+    \foreach \x in {1,...,4}
+      \draw[xshift=\x cm] (0,2pt) -- (0,-2pt) node[below,fill=white] {$\x$};
+    \foreach \y in {-1,...,3}
+      \draw[yshift=\y cm] (2pt,0) -- (-2pt,0) node[left,fill=white] {$\y$};
+    %
+    \draw[red]    plot (\x,\x/3)         node[right] {$f(x) = \frac{x}{3}$};
+    \draw[blue]   plot (\x,{sin(\x r)})  node[right] {$f(x) = \sin x$};
+    \draw[orange] plot (\x,{exp(\x)/50}) node[right] {$f(x) = \frac{e^x}{50}$};
+  \end{tikzpicture}
+\end{frame}
+
+\livecoding{Funktionsplots}
 
 \section{Beamer}
 

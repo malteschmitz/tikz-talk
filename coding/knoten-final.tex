@@ -21,11 +21,10 @@
       fill=red!10,
       draw=red
     },
-    node distance=5mm,
-    thick
+    node distance=5mm
   }
 
-  \begin{tikzpicture}
+  \begin{tikzpicture}[thick]
     \node[io] (in) {Eingabe $a,b$};
     \node[op, below=of in] (div) {$r=a \mod b$};
     \node[op, below=of div] (set) {$a=b,\ b=r$};

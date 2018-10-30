@@ -142,7 +142,7 @@
 
 \subsection{Bäume}
 
-\begin{frame}{Ziel Bäume}
+\begin{frame}[fragile]{Ziel Bäume}
   \tikzset{
     level/.style={
       sibling distance=20mm/#1
@@ -160,8 +160,7 @@
     thick
   }
 
-  \centering
-  \begin{tikzpicture}
+  \centerline{\begin{tikzpicture}
     \node {a}
       child { node {b}
         child { node {d} }
@@ -171,7 +170,7 @@
         child { node {f} }
         child { node {g} }
       };
-  \end{tikzpicture}
+  \end{tikzpicture}}
 \end{frame}
 
 \livecoding{Bäume}
